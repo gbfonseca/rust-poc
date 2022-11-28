@@ -1,12 +1,12 @@
-use actix_web::{App, HttpServer, web};
-mod handlers;
+use actix_web::{App, HttpServer};
+mod controllers;
 
 #[actix_web::main] // or #[tokio::main]
 async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
-            .route("/health", web::get().to(handlers::health))
+            .service(controllers::health_controller)
     })
     .bind(("127.0.0.1", 8080))?
     .run()
